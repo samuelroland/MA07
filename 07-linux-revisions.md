@@ -14,15 +14,17 @@ L’exécution de cette commande dure 1 minute. Comment interrompre cette comman
 ### Exercice 2
 Dans votre répertoire d’accueil, créez l’arborescence suivante, en n’utilisant que des chemins relatifs :
 
-    rep1 
-    |---fich11 
-    |---fich12 
-    |---rep2 
-    | |---fich21 
-    | |---fich22 
-    |---rep3 
-    | |---fich31 
-    | |---fich32 
+```
+rep1 
+|---fich11 
+|---fich12 
+|---rep2 
+| |---fich21 
+| |---fich22 
+|---rep3 
+| |---fich31 
+| |---fich32 
+```
 
 ```
 mkdir -p rep1/rep2 rep1/rep3 
@@ -32,8 +34,13 @@ touch rep1/fich11 rep1/fich12 rep1/rep2/fich21 rep1/rep2/fich22 rep1/rep3/fich31
 ### Exercice 3
 Comment déplacer toute l’arborescence rep3 sous le répertoire rep2 ? Supprimez tout sauf rep1, fich11 et fich12.
 
+- `mv rep1/rep3 rep1/rep2` 
+- `rm -rf rep1/rep2`
+
 ### Exercice 4
 À l’aide de la commande id, déterminez votre UID et votre groupe (nom de groupe et GID). Combien y a-t-il d’utilisateurs dans votre groupe ?
+- uid: 1001
+- TODO
 
 ### Exercice 5
 En utilisant les commandes mkdir et echo, créez dans un nouveau répertoire de nom "reptest" le fichier "bienvenue" contenant la ligne de commandes :
@@ -41,6 +48,13 @@ En utilisant les commandes mkdir et echo, créez dans un nouveau répertoire de 
     echo Bienvenue dans le monde Linux 
 
 Exécutez ce fichier
+
+```
+mkdir reptest
+touch reptest/bienvenue
+echo "echo Bienvenue dans le monde Linux" > reptest/bienvenue
+sh reptest/bienvenue
+```
 
 ### Exercice 6
 En utilisant les commandes chmod et touch, créez un fichier que vous pouvez lire, modifier et supprimer.
@@ -55,7 +69,7 @@ En utilisant les commandes chmod et touch, créez un fichier que vous pouvez lir
 ### Exercice 8
 En utilisant les commandes chmod et touch, créez un fichier que vous pouvez lire mais que vous ne pouvez ni modifier, ni supprimer.
 
-`touch salut.txt && chmod 400 salut.txt`
+`touch salut.txt && chmod 400 salut.txt && chmod 544 .`
 
 ### Exercice 9
 Dans quel cas les permissions d’un fichier à sa création sont-elles différentes des permissions fixées par umask ?
@@ -63,25 +77,40 @@ Dans quel cas les permissions d’un fichier à sa création sont-elles différe
 **La permission d'exécution (x) n'est jamais appliquée à la création du fichier peu importe le umask.**
 
 ### Exercice 10
-Si vous pouvez travailler avec un collègue appartenant au même groupe que vous, modifiez les permissions du fichier créé à l’### exercice "Bienvenue" ci-dessus de telle façon que votre collègue puisse le lire et l’exécuter, mais ne puisse pas le modifier ni le supprimer.
+Si vous pouvez travailler avec un collègue appartenant au même groupe que vous, modifiez les permissions du fichier créé à l’exercice "Bienvenue" ci-dessus de telle façon que votre collègue puisse le lire et l’exécuter, mais ne puisse pas le modifier ni le supprimer.
+
+```
+chmod 554 bienvenue && chmod 554 .
+```
 
 Pouvez-vous modifier les permissions de ce fichier de telle sorte que votre collègue puisse le lire, le modifier et l’exécuter alors que vous-même ne pouvez pas le modifier ?
+```
+chmod 574 bienvenue && chmod 574 .
+```
+
 ### Exercice 11
 
 Comment est attribuée la permission d’effacer un fichier ? Créez un fichier que votre collègue peut modifier mais pas supprimer et un autre qu’il peut supprimer mais pas modifier.
+- Il faut avoir les droits w et x sur le dossier dans lequel le fichier se trouve.
 
 Est-il logique de pouvoir attribuer de tels droits ? Quelles sont les conséquences pratiques de cette expérience ?
+- ??
 
 <!-- No need to know for the exam
 ### Exercice 12
 
 Écrivez votre propre commande "dir" affichant page par page les informations données par la commande ls -l, incluant les fichiers cachés (sauf . Et ..).
 -->
+
 ### Exercice 13
 
 Écrivez un alias imposant la confirmation sur la suppression des fichiers.
 
+- `alias "rm=rm -i"`
+
 Écrivez la commande "psmoi" permettant d’obtenir la liste de tous les processus vous appartenant (utilisez la commande ps).
+
+- `alias "psmoi=ps -u $(users)"`
 
 <!-- No need to know for the exam
 ### Exercice 14
